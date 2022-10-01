@@ -8,7 +8,7 @@ import Logo from "./Logo";
 import Timestamp from "./components/Timestamp";
 import { RuntimeContext } from "./useRuntime";
 import { useLatestBlockHeader } from "./useLatestBlock";
-import { blockURL } from "./url";
+import { blockURL, slotURL } from "./url";
 import { useGenericSearch } from "./search/search";
 import { useFinalizedSlot, useSlotTime } from "./useBeacon";
 
@@ -90,7 +90,10 @@ const Home: React.FC = () => {
         </NavLink>
       )}
       {beaconData && (
-        <div className="flex flex-col items-center space-y-1 mt-5 text-sm text-gray-500">
+        <NavLink
+          className="flex flex-col items-center space-y-1 mt-5 text-sm text-gray-500 hover:text-link-blue"
+          to={slotURL(beaconData.data.header.message.slot)}
+        >
           <div>
             Finalized slot: {commify(beaconData.data.header.message.slot)}
           </div>
@@ -101,7 +104,7 @@ const Home: React.FC = () => {
               {beaconData.data.header.message.state_root}
             </span>
           </div>
-        </div>
+        </NavLink>
       )}
     </div>
   );
